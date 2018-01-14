@@ -3,56 +3,76 @@ import java.util.Scanner;
 import jungle.*;
 
 public class Main {
+  /* Start the party */
   public static Party party = new Party();
 
-  public static void main (String args[]) {
+  public static void main(String args[]) {
 
     Scanner sc = new Scanner(System.in);
 
     int in = 0;
     int input = 0;
 
-    while(in != 4) {
+    while (in != 4) {
       in = roleMenu();
       switch (in) {
       case 1:
         System.out.println("\nHi Mufasa...");
-        while(input != 8) {
+        while (input != 8) {
           input = mainMenu();
-          switch(input) {
+          try {
+            switch (input) {
             case 1:
               System.out.println("### Register Guest ###");
-              System.out.print("Name: ");
-              String name = sc.next();
+              boolean okname = false;
+              String name;
+              do {
+                System.out.print("Name: ");
+                name = sc.nextLine();
+                if (party.checkName(name)) {
+                  okname = true;
+                } else {
+                  System.out.println("The guest is already in the list, please try again");
+                }
+              } while (okname == false);
               System.out.print("Specie: ");
-              String specie = sc.next();
+              String specie = sc.nextLine();
               System.out.print("Special needs for the specie: ");
-              String needs = sc.next();
+              String needs = sc.nextLine();
               System.out.print("Song: ");
-              String song = sc.next();
+              String song = sc.nextLine();
               System.out.println("Arrival mode: ");
               System.out.println("1. Flying");
               System.out.println("2. Swimming");
               System.out.println("3. Land");
-              int arrival = sc.nextInt();
+              int arrival = Integer.parseInt(sc.nextLine());
               if (arrival == 1) {
                 System.out.print("Enter the extension of its wings: ");
                 double wingsExtension = sc.nextDouble();
                 registerFlyingGuest(name, specie, needs, song, wingsExtension);
               } else if (arrival == 2) {
-                System.out.print("Where do you come from (sea or river): ");
-                String whereCome = sc.next();
+                boolean itsok = false;
+                String whereCome;
+                do {
+                  System.out.print("Where do you come from (sea or river): ");
+                  whereCome = sc.nextLine();
+                  if (whereCome.equals("sea") || whereCome.equals("river")) {
+                    itsok = true;
+                  } else {
+                    System.out.println("Invalid option (only sea and river are allowed), please try again");
+                  }
+                } while (itsok == false);
                 registerSwimmingGuest(name, specie, needs, song, whereCome);
               } else if (arrival == 3) {
                 System.out.print("Number of paws: ");
-                int paws = sc.nextInt();
+                int paws = Integer.parseInt(sc.nextLine());
                 registerLandGuest(name, specie, needs, song, paws);
               }
               break;
             case 2:
               System.out.println("### Remove Guest ###");
               System.out.print("Enter the name of the guest to remove: ");
-              String remove = sc.next();
+              String remove = sc.nextLine();
               party.removeGuest(remove);
               System.out.println(remove + " was removed.");
               break;
@@ -78,15 +98,25 @@ public class Main {
               break;
             case 8:
               break;
+            case 9:
+              party.readFile();
+              break;
+            case 10:
+              party.saveFile();
+              break;
+            }
+          } catch (Exception e) {
+            System.out.println("Invalid option " + e.getMessage());
           }
         }
         input = 0;
         break;
-      case 2: 
+      case 2:
         System.out.println("Hi Rafiki...");
-        while(input != 8) {
+        while (input != 8) {
           input = mainMenu();
-          switch(input) {
+          try {
+            switch (input) {
             case 1:
               System.out.println("### Register Guest ###");
               System.out.println("You are not allowed to perform this action.");
@@ -106,7 +136,7 @@ public class Main {
             case 5:
               System.out.println("### Check Guest List ###");
               System.out.print("Enter the name to check: ");
-              String check = sc.next();
+              String check = sc.nextLine();
               if (party.checkGuestByName(check)) {
                 System.out.println(check + " is on the list.");
               } else {
@@ -116,26 +146,36 @@ public class Main {
             case 6:
               System.out.println("### Animal Needs by Name ###");
               System.out.print("Enter the name to check: ");
-              String needsName = sc.next();
+              String needsName = sc.nextLine();
               party.checkNeedsByName(needsName);
               break;
             case 7:
               System.out.println("### Animal Needs by Specie ###");
               System.out.print("Enter the specie name to check: ");
-              String needsSpecie = sc.next();
+              String needsSpecie = sc.nextLine();
               party.checkNeedsBySpecie(needsSpecie);
               break;
             case 8:
               break;
+            case 9:
+              System.out.println("You are not allowed to perform this action.");
+              break;
+            case 10:
+              System.out.println("You are not allowed to perform this action.");
+              break;
+            }
+          } catch (Exception e) {
+            System.out.println("Invalid option " + e.getMessage());
           }
         }
         input = 0;
         break;
-      case 3: 
+      case 3:
         System.out.println("Hi Zazu...");
-        while(input != 8) {
+        while (input != 8) {
           input = mainMenu();
-          switch(input) {
+          try {
+            switch (input) {
             case 1:
               System.out.println("### Register Guest ###");
               System.out.println("You are not allowed to perform this action.");
@@ -167,6 +207,15 @@ public class Main {
               break;
             case 8:
               break;
+            case 9:
+              System.out.println("You are not allowed to perform this action.");
+              break;
+            case 10:
+              System.out.println("You are not allowed to perform this action.");
+              break;
+            }
+          } catch (Exception e) {
+            System.out.println("Invalid option " + e.getMessage());
           }
         }
         input = 0;
@@ -175,7 +224,7 @@ public class Main {
         break;
       }
     }
-    
+
   }
 
   public static int roleMenu() {
@@ -189,16 +238,16 @@ public class Main {
 
       System.out.print("Enter an option: ");
       Scanner sc = new Scanner(System.in);
-      int input = sc.nextInt();
+      int input = Integer.parseInt(sc.nextLine());
 
       return input;
-    } catch(Exception e) {
-      System.out.println(e.getMessage());
+    } catch (Exception e) {
+      System.out.println("Invalid option " + e.getMessage());
       return 0;
     }
   }
 
-  public static int mainMenu(){
+  public static int mainMenu() {
     try {
       System.out.println("\n------ Main Menu ------");
       System.out.println("Select an option:");
@@ -209,34 +258,38 @@ public class Main {
       System.out.println("5. Check if an animal is on the guest list");
       System.out.println("6. List animal needs by animal name");
       System.out.println("7. List animal needs by specie name");
-      System.out.println("8. Exit\n");
+      System.out.println("8. Exit (Change Role)\n");
+      System.out.println("9. Read file");
+      System.out.println("10. Save Guest list\n");
 
       System.out.print("Enter an option: ");
       Scanner sc = new Scanner(System.in);
-      int input = sc.nextInt();
+      int input = Integer.parseInt(sc.nextLine());
 
       return input;
-    } catch(Exception e) {
-      System.out.println(e.getMessage());
+    } catch (Exception e) {
+      System.out.println("Invalid option " + e.getMessage());
       return 0;
     }
   }
 
-  public static void registerFlyingGuest(String name, String specie, String needs, String song, double wingsExtension){
+  public static void registerFlyingGuest(String name, String specie, String needs, String song, double wingsExtension) {
     Specie sp = new Specie(specie, needs);
     Song sg = new Song(song);
     Animal f = new Flying(name, sp, sg, wingsExtension);
     party.addGuest(f);
     System.out.println(f.getName() + " was added.");
   }
-  public static void registerSwimmingGuest(String name, String specie, String needs, String song, String whereCome){
+
+  public static void registerSwimmingGuest(String name, String specie, String needs, String song, String whereCome) {
     Specie sp = new Specie(specie, needs);
     Song sg = new Song(song);
     Animal s = new Swimming(name, sp, sg, whereCome);
     party.addGuest(s);
     System.out.println(s.getName() + " was added.");
   }
-  public static void registerLandGuest(String name, String specie, String needs, String song, int paws){
+
+  public static void registerLandGuest(String name, String specie, String needs, String song, int paws) {
     Specie sp = new Specie(specie, needs);
     Song sg = new Song(song);
     Animal l = new Land(name, sp, sg, paws);
