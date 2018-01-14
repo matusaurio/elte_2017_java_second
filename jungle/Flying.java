@@ -17,7 +17,11 @@ public class Flying extends Animal {
   }
 
   public String toString() {
-    return this.name + "\n" + this.specie.getName() + "\n" + this.specie.getNeeds() + "\n" + this.song.getName() + "\n" + this.wingsExtension;
+    return "Name: " + this.name 
+      + "\nSpecie: " + this.specie.getName() 
+      + "\nNeeds: " + this.specie.getNeeds() 
+      + "\nSong: " + this.song.getName() 
+      + "\nExtension of wings: " + this.wingsExtension + "\n";
   }
 
 }

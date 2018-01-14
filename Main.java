@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 
 import jungle.*;
 
@@ -99,7 +100,7 @@ public class Main {
             case 8:
               break;
             case 9:
-              party.readFile();
+              readFile();
               break;
             case 10:
               party.saveFile();
@@ -295,6 +296,66 @@ public class Main {
     Animal l = new Land(name, sp, sg, paws);
     party.addGuest(l);
     System.out.println(l.getName() + " was added.");
+  }
+
+  /* File Input Stream */
+  public static void readFile() throws FileNotFoundException {
+    InputStream in = new FileInputStream("input.txt");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+    // ArrayList<String> inputArray = new ArrayList<String>();
+    String line = null;
+    int counter = 0;
+    String name = null;
+    String specie = null;
+    String needs = null;
+    String song = null;
+    String type = null;
+
+    try {
+      while ((line = reader.readLine()) != null) {
+        counter++;
+          if (counter == 1) {
+            name = line;
+          } 
+          if (counter == 2) {
+            specie = line;
+          } 
+          if (counter == 3) {
+            needs = line;
+          } 
+          if (counter == 4) {
+            song = line;
+          } 
+          if (counter == 5) {
+            type = line;
+          } 
+          if (counter == 6) {
+            if (type.equals("flying")) {
+              double wingsExtension = Double.parseDouble(line);
+              registerFlyingGuest(name, specie, needs, song, wingsExtension);
+              counter = 0;
+            } else if (type.equals("swimming")) {
+              String whereCome = line;
+              registerSwimmingGuest(name, specie, needs, song, whereCome);
+              counter = 0;
+            } else if (type.equals("land")) {
+              int paws = Integer.parseInt(line);
+              registerLandGuest(name, specie, needs, song, paws);
+              counter = 0;
+            }
+          }
+        }
+    } catch (IOException e) {
+      e.getMessage();
+    } finally {
+      try {
+        reader.close();
+        System.out.println("File read finished.");
+      } catch (IOException e) {
+        e.getMessage();
+      }
+    }
   }
 
 }

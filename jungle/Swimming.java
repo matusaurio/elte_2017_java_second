@@ -17,6 +17,10 @@ public class Swimming extends Animal {
   }
 
   public String toString() {
-    return this.name + "\n" + this.specie.getName() + "\n" + this.specie.getNeeds() + "\n" + this.song.getName() + "\n" + this.whereCome;
+    return "Name: " + this.name 
+      + "\nSpecie: " + this.specie.getName() 
+      + "\nNeeds: " + this.specie.getNeeds() 
+      + "\nSong: " + this.song.getName() 
+      + "\nCome from: " + this.whereCome + "\n";
   }
 }

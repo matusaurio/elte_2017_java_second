@@ -124,35 +124,12 @@ public class Party implements Actions {
     }
   }
 
-  /* File Input Stream */
-  public void readFile() throws FileNotFoundException {
-    InputStream in = new FileInputStream("input.txt");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-    ArrayList<String> inputArray = new ArrayList<String>();
-    String line = null;
-
-    try {
-      while ((line = reader.readLine()) != null) {
-        inputArray.add(line);
-      }
-    } catch (IOException e) {
-      e.getMessage();
-    } finally {
-      try {
-        reader.close();
-      } catch (IOException e) {
-        e.getMessage();
-      }
-    }
-    System.out.println("File readed.");
-    // System.out.println(inputArray.toString());
-  }
-
   /* File Output Stream */
   public void saveFile() throws FileNotFoundException {
     PrintWriter pw = new PrintWriter(new FileOutputStream("output.txt"));
     try {
+      pw.println("Jungle Party by The Lion King!!!");
+      pw.println("List of guests\n");
       for (Animal a : guests) {
         pw.println(a.toString());
       }

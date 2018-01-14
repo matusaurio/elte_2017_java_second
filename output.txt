@@ -1,15 +1,21 @@
-santiago
-human
-alcohol
-highway to hell
-river
-simba
-lion
-family
-hakuna matata
-4
-ale
-human
-water
-ale song
-2
+------ Jungle Party by The Lion King!!! ------
+List of guests
+
+Name: santiago
+Specie: human
+Needs: alcohol
+Song: highway to hell
+Come from: river
+
+Name: simba
+Specie: lion
+Needs: family
+Song: hakuna matata
+Number of paws: 4
+
+Name: ale
+Specie: human
+Needs: water
+Song: ale song
+Extension of wings: 2.0
+
