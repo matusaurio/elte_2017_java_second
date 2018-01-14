@@ -241,13 +241,11 @@ public class Main {
       System.out.print("Enter an option: ");
       Scanner sc = new Scanner(System.in);
       int input = Integer.parseInt(sc.nextLine());
-
+      
       return input;
     } catch (Exception e) {
       System.out.println("Invalid option " + e.getMessage());
       return 0;
-    } finally {
-      sc.close();
     }
   }
 
@@ -274,8 +272,6 @@ public class Main {
     } catch (Exception e) {
       System.out.println("Invalid option " + e.getMessage());
       return 0;
-    } finally {
-      sc.close();
     }
   }
 
