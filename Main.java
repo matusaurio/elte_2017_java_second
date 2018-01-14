@@ -225,6 +225,7 @@ public class Main {
         break;
       }
     }
+    sc.close();
 
   }
 
@@ -245,6 +246,8 @@ public class Main {
     } catch (Exception e) {
       System.out.println("Invalid option " + e.getMessage());
       return 0;
+    } finally {
+      sc.close();
     }
   }
 
@@ -271,6 +274,8 @@ public class Main {
     } catch (Exception e) {
       System.out.println("Invalid option " + e.getMessage());
       return 0;
+    } finally {
+      sc.close();
     }
   }
 
